@@ -1,8 +1,12 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, Text, TextInput} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity} from 'react-native';
 
 export class InputField extends Component {
+  state = {
+    firstText: '',
+  };
+
   //   secondInput = () => (
   //     <TextInput
   //       style={{
@@ -64,6 +68,33 @@ export class InputField extends Component {
           //   placeholderTextColor={'white'}
         />
 
+        {/* this is button */}
+
+        <TouchableOpacity
+          // onPress={() => console.warn('Study')}
+          onPress={() => this.setState({firstText: 'Button pressed'})}
+          style={{
+            backgroundColor: 'blue',
+            width: '70%',
+            height: 40,
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 10,
+            borderRadius: 10,
+          }}>
+          <Text
+            style={{
+              fontSize: 20,
+              fontWeight: 'bold',
+              // fontStyle: 'italic',
+              color: '#fff',
+            }}>
+            Sign In
+          </Text>
+        </TouchableOpacity>
+
+        {/* First text from state */}
+        <Text>{this.state.firstText}</Text>
         {/* {this.secondInput()} */}
       </View>
     );
