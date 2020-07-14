@@ -1,6 +1,13 @@
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, Text, TextInput, TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+} from 'react-native';
 
 export class InputField extends Component {
   //   secondInput = () => (
@@ -34,13 +41,37 @@ export class InputField extends Component {
 
   render() {
     return (
-      <View
+      <ImageBackground
+        source={require('./assets/bg.jpg')}
         style={{
           flex: 1,
-          backgroundColor: '#faf',
           alignItems: 'center',
           justifyContent: 'center',
+          resizeMode: 'contain',
         }}>
+        {/* this is image */}
+        <View
+          style={{
+            // backgroundColor: 'white',
+            width: '70%',
+            height: '10%',
+            marginBottom: 20,
+          }}>
+          <Image
+            style={{
+              height: '100%',
+              width: '100%',
+              resizeMode: 'contain',
+            }}
+            // resizeMode={'contain'}
+            source={require('./assets/1.png')}
+            // source={{
+            //   uri:
+            //     'https://images.unsplash.com/photo-1594011212737-e31ad780b52f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1546&q=80',
+            // }}
+          />
+        </View>
+
         <TextInput
           style={{
             height: '10%',
@@ -149,8 +180,42 @@ export class InputField extends Component {
           </Text>
         </TouchableOpacity>
 
+        {/* Btn with Img */}
+        <View
+          style={{
+            width: '70%',
+            height: '8%',
+            marginTop: 10,
+          }}>
+          <TouchableOpacity
+            onPress={() => console.warn('BG btn ')}
+            style={{
+              width: '100%',
+              height: 40,
+            }}>
+            <ImageBackground
+              source={require('./assets/btn.jpg')}
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+                overflow: 'hidden',
+                borderRadius: 20,
+              }}>
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontWeight: 'bold',
+                  // fontStyle: 'italic',
+                  color: '#fff',
+                }}>
+                Hit Function
+              </Text>
+            </ImageBackground>
+          </TouchableOpacity>
+        </View>
         {/* {this.secondInput()} */}
-      </View>
+      </ImageBackground>
     );
   }
 }
