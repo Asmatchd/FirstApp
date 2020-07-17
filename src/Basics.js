@@ -3,6 +3,15 @@ import React, {Component} from 'react';
 import {View, Text} from 'react-native';
 
 export class Basics extends Component {
+  state = {
+    txt: '',
+  };
+
+  componentDidMount = () => {
+    const xyz = this.props.route.params.navParams;
+    this.setState({txt: xyz});
+  };
+
   render() {
     return (
       <View
@@ -40,7 +49,7 @@ export class Basics extends Component {
                 color: 'white',
                 fontSize: 40,
               }}>
-              Colour 1
+              {this.state.txt}
             </Text>
           </View>
         </View>
