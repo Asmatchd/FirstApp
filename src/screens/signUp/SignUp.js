@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   Image,
   SafeAreaView,
+  Alert,
+  Platform,
 } from 'react-native';
 import {
   widthPercentageToDP as w,
@@ -16,10 +18,10 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
 export class SignUp extends Component {
   state = {
-    name: 'Rn class',
-    email: 'Sgd@gmail.com',
-    phone: '12345678',
-    password: 'kdshfkghsdil',
+    name: '',
+    email: '',
+    phone: '',
+    password: '',
   };
 
   show = () => {
@@ -30,10 +32,26 @@ export class SignUp extends Component {
     //   password: this.state.password,
     // };
 
-    console.warn(this.state.name);
-    console.warn(this.state.email);
-    console.warn(this.state.phone);
-    console.warn(this.state.password);
+    if (
+      this.state.name === '' ||
+      this.state.email === '' ||
+      this.state.phone === '' ||
+      this.state.password === ''
+    ) {
+      Alert.alert('React class', 'All fields are required.', [
+        {
+          text: 'Cancel',
+          onPress: () => console.warn('Cancel Pressed'),
+        },
+
+        {
+          text: 'OK',
+          onPress: () => console.warn('OK Pressed'),
+        },
+      ]);
+    } else {
+      alert('All done');
+    }
   };
 
   render() {
@@ -152,6 +170,9 @@ export class SignUp extends Component {
                   width: '80%',
                   color: 'white',
                   fontSize: h('2%'),
+                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                  borderRadius: h('1%'),
+                  paddingLeft: h('1%'),
                 }}
                 placeholderTextColor={'#fff'}
                 placeholder={'Full name'}
@@ -168,6 +189,9 @@ export class SignUp extends Component {
                   marginTop: h('1%'),
                   color: 'white',
                   fontSize: h('2%'),
+                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                  borderRadius: h('1%'),
+                  paddingLeft: h('1%'),
                 }}
                 placeholderTextColor={'#fff'}
                 placeholder={'Email'}
@@ -185,6 +209,9 @@ export class SignUp extends Component {
                   marginTop: h('1%'),
                   color: 'white',
                   fontSize: h('2%'),
+                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                  borderRadius: h('1%'),
+                  paddingLeft: h('1%'),
                 }}
                 placeholderTextColor={'#fff'}
                 placeholder={'Phone'}
@@ -202,6 +229,9 @@ export class SignUp extends Component {
                   marginTop: h('1%'),
                   color: 'white',
                   fontSize: h('2%'),
+                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                  borderRadius: h('1%'),
+                  paddingLeft: h('1%'),
                 }}
                 placeholderTextColor={'#fff'}
                 placeholder={'Password'}
@@ -219,10 +249,10 @@ export class SignUp extends Component {
                   height: h('6%'),
                   width: '60%',
                   marginTop: h('1%'),
-                  backgroundColor: 'white',
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: h('10%'),
+                  backgroundColor: Platform.OS === 'ios'? '#fff7': 'white'
                 }}>
                 <Text
                   style={{
