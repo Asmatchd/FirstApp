@@ -16,6 +16,8 @@ import {
 } from 'react-native-responsive-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 export class SignUp extends Component {
   state = {
     name: '',
@@ -24,14 +26,11 @@ export class SignUp extends Component {
     password: '',
   };
 
-  show = () => {
-    // const values = {
-    //   name: this.state.name,
-    //   email: this.state.email,
-    //   phone: this.state.phone,
-    //   password: this.state.password,
-    // };
+  componentDidMount = () => {
+    this.retrieveData();
+  };
 
+  SignUp = () => {
     if (
       this.state.name === '' ||
       this.state.email === '' ||
@@ -50,8 +49,40 @@ export class SignUp extends Component {
         },
       ]);
     } else {
-      alert('All done');
+      const values = {
+        name: this.state.name,
+        email: this.state.email,
+        phone: this.state.phone,
+        password: this.state.password,
+      };
+      AsyncStorage.setItem('userData', JSON.stringify(values), () => {
+        console.warn('ok');
+      });
     }
+  };
+
+  retrieveData = () => {
+    AsyncStorage.getItem('userData', (error, data) => {
+      const userData = JSON.parse(data);
+      if (userData !== null) {
+        // We have data!!
+        // console.warn(userData);
+        this.setState({
+          name: userData.name,
+          email: userData.email,
+          phone: userData.phone,
+          password: userData.password,
+        });
+      } else {
+        console.warn('No data found');
+      }
+    });
+  };
+
+  removeData = () => {
+    AsyncStorage.removeItem('userData', () => {
+      console.warn('Data removed');
+    });
   };
 
   render() {
@@ -243,7 +274,7 @@ export class SignUp extends Component {
 
               <TouchableOpacity
                 onPress={() => {
-                  this.show();
+                  this.SignUp();
                 }}
                 style={{
                   height: h('6%'),
@@ -252,13 +283,35 @@ export class SignUp extends Component {
                   alignItems: 'center',
                   justifyContent: 'center',
                   borderRadius: h('10%'),
-                  backgroundColor: Platform.OS === 'ios'? '#fff7': 'white'
+                  backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
                 }}>
                 <Text
                   style={{
                     fontSize: h('2.5%'),
                   }}>
                   SignUp
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  // this.show();
+                  this.removeData();
+                }}
+                style={{
+                  height: h('6%'),
+                  width: '60%',
+                  marginTop: h('1%'),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: h('10%'),
+                  backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
+                }}>
+                <Text
+                  style={{
+                    fontSize: h('2.5%'),
+                  }}>
+                  Remove data
                 </Text>
               </TouchableOpacity>
             </View>
