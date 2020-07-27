@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Alert,
   Platform,
+  Modal,
 } from 'react-native';
 import {
   widthPercentageToDP as w,
@@ -24,11 +25,15 @@ export class SignUp extends Component {
     email: '',
     phone: '',
     password: '',
+    modalVisible: false,
+
+    inEmail: '',
+    inPassword: '',
   };
 
-  componentDidMount = () => {
-    this.retrieveData();
-  };
+  // componentDidMount = () => {
+  //   this.retrieveData();
+  // };
 
   SignUp = () => {
     if (
@@ -318,7 +323,10 @@ export class SignUp extends Component {
           </View>
 
           {/* Bottom View */}
-          <View
+          <TouchableOpacity
+            onPress={() => {
+              this.setState({modalVisible: true});
+            }}
             style={{
               height: h('10%'),
               width: '100%',
@@ -341,7 +349,198 @@ export class SignUp extends Component {
               }}>
               SignIn
             </Text>
-          </View>
+          </TouchableOpacity>
+
+          <Modal
+            animationType="slide"
+            // transparent={true}
+            visible={this.state.modalVisible}
+            onRequestClose={() => {
+              this.setState({modalVisible: false});
+            }}>
+            <KeyboardAwareScrollView
+              contentContainerStyle={{
+                flexGrow: 2,
+              }}>
+              <View
+                style={{
+                  // height: '100%',
+                  // width: '100%',
+                  flex: 1,
+                  backgroundColor: '#0005',
+                }}>
+                <SafeAreaView />
+                {/* TOp View */}
+                <View
+                  style={{
+                    height: h('10%'),
+                    // height: '10%',
+                    width: '100%',
+                    // backgroundColor: '#FAF',
+                    flexDirection: 'row',
+                    // justifyContent: 'space-between',
+                  }}>
+                  <TouchableOpacity
+                    style={{
+                      height: '100%',
+                      width: '20%',
+                      //   backgroundColor: '#aa0',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: h('4.5%'),
+                      }}>{`<`}</Text>
+                  </TouchableOpacity>
+
+                  <View
+                    style={{
+                      width: '60%',
+                    }}
+                  />
+
+                  <TouchableOpacity
+                    style={{
+                      height: '100%',
+                      width: '20%',
+                      //   backgroundColor: '#aa0',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: h('2.5%'),
+                      }}>
+                      Done
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+
+                {/* Center View */}
+                <View
+                  style={{
+                    height: h('75%'),
+                    width: '100%',
+                    // backgroundColor: '#faa',
+                  }}>
+                  {/* Image container */}
+
+                  {/* Text */}
+                  <View
+                    style={{
+                      alignItems: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        fontSize: h('3%'),
+                        color: '#fff',
+                      }}>
+                      Sing in to your account
+                    </Text>
+                  </View>
+
+                  {/* Inputs container */}
+                  <View
+                    style={{
+                      height: '60%',
+                      // backgroundColor: '#a234',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      paddingTop: h('1%'),
+                    }}>
+                    <TextInput
+                      style={{
+                        // backgroundColor: '#aa07',
+                        height: h('7%'),
+                        width: '80%',
+                        marginTop: h('1%'),
+                        color: 'white',
+                        fontSize: h('2%'),
+                        borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                        borderRadius: h('1%'),
+                        paddingLeft: h('1%'),
+                      }}
+                      placeholderTextColor={'#fff'}
+                      placeholder={'Enter Email'}
+                      underlineColorAndroid={'#0005'}
+                      onChangeText={(inEmail) => this.setState({inEmail})}
+                      keyboardType={'email-address'}
+                    />
+
+                    <TextInput
+                      style={{
+                        // backgroundColor: '#aa07',
+                        height: h('7%'),
+                        width: '80%',
+                        marginTop: h('1%'),
+                        color: 'white',
+                        fontSize: h('2%'),
+                        borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                        borderRadius: h('1%'),
+                        paddingLeft: h('1%'),
+                      }}
+                      placeholderTextColor={'#fff'}
+                      placeholder={'Enter Password'}
+                      secureTextEntry
+                      underlineColorAndroid={'#0005'}
+                      onChangeText={(inPassword) => this.setState({inPassword})}
+                    />
+
+                    <TouchableOpacity
+                      onPress={() => {
+                        console.warn(this.state.inEmail);
+                        console.warn(this.state.inPassword);
+                      }}
+                      style={{
+                        height: h('6%'),
+                        width: '60%',
+                        marginTop: h('1%'),
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        borderRadius: h('10%'),
+                        backgroundColor:
+                          Platform.OS === 'ios' ? '#fff7' : 'white',
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: h('2.5%'),
+                        }}>
+                        Sign In
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+
+                {/* Bottom View */}
+                <TouchableOpacity
+                  onPress={() => this.setState({modalVisible: false})}
+                  style={{
+                    height: h('10%'),
+                    width: '100%',
+                    // backgroundColor: '#aaf',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: h('2%'),
+                    }}>
+                    Don't have an account?
+                  </Text>
+                  <Text
+                    style={{
+                      color: 'red',
+                      fontSize: h('2.5%'),
+                      marginLeft: h('1%'),
+                    }}>
+                    SignUp
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </KeyboardAwareScrollView>
+          </Modal>
         </View>
       </KeyboardAwareScrollView>
     );

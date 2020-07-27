@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  Modal,
 } from 'react-native';
 
 export class InputField extends Component {
