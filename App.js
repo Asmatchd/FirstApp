@@ -7,11 +7,17 @@ const Stack = createStackNavigator();
 import {Basics} from './src/Basics';
 import {InputField} from './src/InputField';
 import {SignUp} from './src/screens/signUp';
+import {Assignment2} from './src/screens/assignments';
 
 const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="Assignment2"
+          component={Assignment2}
+          options={{headerShown: false}}
+        />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
