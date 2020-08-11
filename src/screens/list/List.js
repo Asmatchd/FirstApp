@@ -1,7 +1,13 @@
-/* eslint-disable react/self-closing-comp */
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
-import {View, Text, FlatList, Image} from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+  Image,
+  Modal,
+  TouchableOpacity,
+} from 'react-native';
 import {
   widthPercentageToDP as w,
   heightPercentageToDP as h,
@@ -31,6 +37,10 @@ export class List extends Component {
         img: require('./../../assets/3.jpeg'),
       },
     ],
+
+    modalVisible: false,
+
+    selectedData: '',
   };
 
   renderItemDesign = (item) => (
@@ -42,10 +52,15 @@ export class List extends Component {
         width: '100%',
         height: h('13%'),
         borderWidth: h('0.4%'),
-        borderColor:'rgba(0,0,0,0.05)'
+        borderColor: 'rgba(0,0,0,0.05)',
       }}>
       {/* img */}
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          this.setState({selectedData: item}, () => {
+            this.setState({modalVisible: true});
+          });
+        }}
         style={{
           width: '25%',
           height: '100%',
@@ -62,7 +77,7 @@ export class List extends Component {
             borderRadius: 200,
           }}
         />
-      </View>
+      </TouchableOpacity>
 
       {/* center */}
       <View
@@ -115,6 +130,68 @@ export class List extends Component {
           renderItem={({item}) => this.renderItemDesign(item)}
           keyExtractor={(item) => item.name}
         />
+
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            this.setState({modalVisible: false});
+          }}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: '#0003',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <View
+              style={{
+                height: h('60%'),
+                backgroundColor: '#fff',
+                width: '100%',
+              }}>
+              <View
+                style={{
+                  // backgroundColor: '#aa4',
+                  height: h('30%'),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Image
+                  source={this.state.selectedData.img}
+                  style={{
+                    resizeMode: 'cover',
+                    width: h('18%'),
+                    height: h('18%'),
+                    borderRadius: h('100%'),
+                  }}
+                />
+              </View>
+              <View
+                style={{
+                  // backgroundColor: '#faa',
+                  height: h('30%'),
+                  alignItems: 'center',
+                }}>
+                <Text style={{fontSize: h('3%')}}>
+                  Name: {this.state.selectedData.name}
+                </Text>
+                <Text style={{fontSize: h('3%')}}>
+                  Father Name: {this.state.selectedData.fName}
+                </Text>
+                <Text style={{fontSize: h('3%')}}>
+                  DOB: {this.state.selectedData.dob}
+                </Text>
+                <Text style={{fontSize: h('3%')}}>
+                  City: {this.state.selectedData.city}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      
+      
       </View>
     );
   }
