@@ -7,6 +7,7 @@ import {
   Image,
   Modal,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 import {
   widthPercentageToDP as w,
@@ -41,6 +42,7 @@ export class List extends Component {
     modalVisible: false,
 
     selectedData: '',
+    refreshing: false,
   };
 
   renderItemDesign = (item) => (
@@ -80,7 +82,22 @@ export class List extends Component {
       </TouchableOpacity>
 
       {/* center */}
-      <View
+      <TouchableOpacity
+        onPress={() => {
+          Alert.alert(
+            'Alert',
+            'Do you want to remove this item',
+            [
+              {
+                text: 'No',
+                onPress: () => console.log('Cancel Pressed'),
+                style: 'cancel',
+              },
+              {text: 'Yes', onPress: () => this.remove(item)},
+            ],
+            {cancelable: false},
+          );
+        }}
         style={{
           width: '75%',
           // backgroundColor: '#afa',
@@ -115,9 +132,29 @@ export class List extends Component {
             {item.dob} {'     '} {item.city}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
+
+  handleRefresh = () => {
+    this.setState({refreshing: true}, () => {
+      setInterval(() => {
+        this.setState({refreshing: false});
+      }, 3000);
+    });
+  };
+
+  remove = (item) => {
+    const data = this.state.listData;
+
+    const index = data.indexOf(item);
+
+    if (index > -1) {
+      data.splice(index, 1);
+    }
+
+    this.setState({listData: data});
+  };
 
   render() {
     return (
@@ -129,6 +166,8 @@ export class List extends Component {
           data={this.state.listData}
           renderItem={({item}) => this.renderItemDesign(item)}
           keyExtractor={(item) => item.name}
+          refreshing={this.state.refreshing}
+          onRefresh={() => this.handleRefresh()}
         />
 
         <Modal
@@ -190,8 +229,6 @@ export class List extends Component {
             </View>
           </View>
         </Modal>
-      
-      
       </View>
     );
   }
