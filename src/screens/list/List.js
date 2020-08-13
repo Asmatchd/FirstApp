@@ -8,6 +8,7 @@ import {
   Modal,
   TouchableOpacity,
   Alert,
+  TextInput,
 } from 'react-native';
 import {
   widthPercentageToDP as w,
@@ -18,6 +19,43 @@ export class List extends Component {
     listData: [
       {
         name: 'Umer',
+        fName: 'Irfan',
+        dob: '17-08-1999',
+        city: 'Sargodha',
+        img: require('./../../assets/us.jpg'),
+      },
+      {
+        name: 'Umair',
+        fName: 'Irfan',
+        dob: '17-08-1999',
+        city: 'Sargodha',
+        img: require('./../../assets/us.jpg'),
+      },
+      {
+        name: 'Haseeb',
+        fName: 'Safdar',
+        dob: '18-01-1994',
+        city: 'Sargodha',
+        img: require('./../../assets/2.jpeg'),
+      },
+      {
+        name: 'Qasim',
+        fName: 'Ali',
+        dob: '10-07-1995',
+        city: 'Sargodha',
+        img: require('./../../assets/3.jpeg'),
+      },
+    ],
+    filteredData: [
+      {
+        name: 'Umer',
+        fName: 'Irfan',
+        dob: '17-08-1999',
+        city: 'Sargodha',
+        img: require('./../../assets/us.jpg'),
+      },
+      {
+        name: 'Umair',
         fName: 'Irfan',
         dob: '17-08-1999',
         city: 'Sargodha',
@@ -40,12 +78,11 @@ export class List extends Component {
     ],
 
     modalVisible: false,
-
     selectedData: '',
     refreshing: false,
   };
 
-  renderItemDesign = (item) => (
+  renderItemDesign = (item, index) => (
     <View
       style={{
         marginBottom: h('2%'),
@@ -74,8 +111,8 @@ export class List extends Component {
           source={item.img}
           style={{
             resizeMode: 'cover',
-            width: '70%',
-            height: '70%',
+            width: h('9%'),
+            height: h('9%'),
             borderRadius: 200,
           }}
         />
@@ -93,7 +130,8 @@ export class List extends Component {
                 onPress: () => console.log('Cancel Pressed'),
                 style: 'cancel',
               },
-              {text: 'Yes', onPress: () => this.remove(item)},
+              // {text: 'Yes', onPress: () => this.removeByItem(item)},
+              {text: 'Yes', onPress: () => this.removeByIndex(index)},
             ],
             {cancelable: false},
           );
@@ -136,15 +174,7 @@ export class List extends Component {
     </View>
   );
 
-  handleRefresh = () => {
-    this.setState({refreshing: true}, () => {
-      setInterval(() => {
-        this.setState({refreshing: false});
-      }, 3000);
-    });
-  };
-
-  remove = (item) => {
+  removeByItem = (item) => {
     const data = this.state.listData;
 
     const index = data.indexOf(item);
@@ -156,15 +186,57 @@ export class List extends Component {
     this.setState({listData: data});
   };
 
+  removeByIndex = (index) => {
+    const data = this.state.listData;
+
+    if (index > -1) {
+      data.splice(index, 1);
+    }
+
+    this.setState({listData: data});
+  };
+
+  handleRefresh = () => {
+    this.setState({refreshing: true}, () => {
+      setInterval(() => {
+        this.setState({refreshing: false});
+      }, 3000);
+    });
+  };
+
+  searching = (text) => {
+    const newData = this.state.listData.filter((item) => {
+      const itemData = item.name.toUpperCase();
+
+      const searchText = text.toUpperCase();
+
+      return itemData.indexOf(searchText) > -1;
+    });
+    this.setState({filteredData: newData});
+  };
+
   render() {
     return (
       <View
         style={{
-          paddingTop: 50,
+          flex: 1,
         }}>
+        <TextInput
+          style={{
+            backgroundColor: '#0001',
+            borderWidth: h('0.2%'),
+            marginTop: h('3%'),
+            marginBottom: h('3%'),
+            borderColor: 'blue',
+            paddingLeft: h('5%'),
+            fontSize: h('2.5%'),
+          }}
+          placeholder={'Search Here'}
+          onChangeText={(text) => this.searching(text)}
+        />
         <FlatList
-          data={this.state.listData}
-          renderItem={({item}) => this.renderItemDesign(item)}
+          data={this.state.filteredData}
+          renderItem={({item, index}) => this.renderItemDesign(item, index)}
           keyExtractor={(item) => item.name}
           refreshing={this.state.refreshing}
           onRefresh={() => this.handleRefresh()}
