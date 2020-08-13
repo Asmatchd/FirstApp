@@ -206,7 +206,7 @@ export class List extends Component {
 
   searching = (text) => {
     const newData = this.state.listData.filter((item) => {
-      const itemData = item.name.toUpperCase();
+      const itemData = `${item.name.toUpperCase()} ${item.fName.toUpperCase()} `;
 
       const searchText = text.toUpperCase();
 
