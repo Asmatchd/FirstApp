@@ -16,9 +16,8 @@ import {
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-
 import AsyncStorage from '@react-native-community/async-storage';
-
+import {Loading} from './../../components';
 export class SignUp extends Component {
   state = {
     name: '',
@@ -26,6 +25,7 @@ export class SignUp extends Component {
     phone: '',
     password: '',
     modalVisible: false,
+    loadingVisible: false,
 
     inEmail: '',
     inPassword: '',
@@ -101,9 +101,12 @@ export class SignUp extends Component {
             // height: '100%',
             // width: '100%',
             flex: 1,
-            backgroundColor: '#0005',
+            backgroundColor: '#a003',
           }}>
           <SafeAreaView />
+
+          <Loading visible={this.state.loadingVisible} txt={'Loading'} />
+
           {/* TOp View */}
           <View
             style={{
@@ -194,7 +197,7 @@ export class SignUp extends Component {
             {/* Inputs container */}
             <View
               style={{
-                height: '60%',
+                height: '80%',
                 // backgroundColor: '#a234',
                 alignItems: 'center',
                 paddingTop: h('1%'),
@@ -317,6 +320,27 @@ export class SignUp extends Component {
                     fontSize: h('2.5%'),
                   }}>
                   Remove data
+                </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({loadingVisible: true});
+                }}
+                style={{
+                  height: h('6%'),
+                  width: '60%',
+                  marginTop: h('1%'),
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  borderRadius: h('10%'),
+                  backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
+                }}>
+                <Text
+                  style={{
+                    fontSize: h('2.5%'),
+                  }}>
+                  Show loading
                 </Text>
               </TouchableOpacity>
             </View>

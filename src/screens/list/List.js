@@ -187,13 +187,13 @@ export class List extends Component {
   };
 
   removeByIndex = (index) => {
-    const data = this.state.listData;
+    const data = this.state.filteredData;
 
     if (index > -1) {
       data.splice(index, 1);
     }
 
-    this.setState({listData: data});
+    this.setState({filteredData: data});
   };
 
   handleRefresh = () => {
