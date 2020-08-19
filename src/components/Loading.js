@@ -10,7 +10,7 @@ export class Loading extends Component {
   render() {
     return (
       <View>
-        {this.props.visible ? (
+        {this.props.visible === true ? (
           <View
             style={{
               height: h('100%'),

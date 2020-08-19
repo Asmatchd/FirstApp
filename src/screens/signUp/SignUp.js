@@ -17,7 +17,7 @@ import {
 } from 'react-native-responsive-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Loading} from './../../components';
+import {Loading, AppInputField, AppBtn} from './../../components';
 export class SignUp extends Component {
   state = {
     name: '',
@@ -202,17 +202,7 @@ export class SignUp extends Component {
                 alignItems: 'center',
                 paddingTop: h('1%'),
               }}>
-              <TextInput
-                style={{
-                  // backgroundColor: '#aa07',
-                  height: h('7%'),
-                  width: '80%',
-                  color: 'white',
-                  fontSize: h('2%'),
-                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
-                  borderRadius: h('1%'),
-                  paddingLeft: h('1%'),
-                }}
+              <AppInputField
                 placeholderTextColor={'#fff'}
                 placeholder={'Full name'}
                 underlineColorAndroid={'#0005'}
@@ -220,18 +210,7 @@ export class SignUp extends Component {
                 value={this.state.name}
               />
 
-              <TextInput
-                style={{
-                  // backgroundColor: '#aa07',
-                  height: h('7%'),
-                  width: '80%',
-                  marginTop: h('1%'),
-                  color: 'white',
-                  fontSize: h('2%'),
-                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
-                  borderRadius: h('1%'),
-                  paddingLeft: h('1%'),
-                }}
+              <AppInputField
                 placeholderTextColor={'#fff'}
                 placeholder={'Email'}
                 underlineColorAndroid={'#0005'}
@@ -240,18 +219,7 @@ export class SignUp extends Component {
                 value={this.state.email}
               />
 
-              <TextInput
-                style={{
-                  // backgroundColor: '#aa07',
-                  height: h('7%'),
-                  width: '80%',
-                  marginTop: h('1%'),
-                  color: 'white',
-                  fontSize: h('2%'),
-                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
-                  borderRadius: h('1%'),
-                  paddingLeft: h('1%'),
-                }}
+              <AppInputField
                 placeholderTextColor={'#fff'}
                 placeholder={'Phone'}
                 underlineColorAndroid={'#0005'}
@@ -260,18 +228,7 @@ export class SignUp extends Component {
                 value={this.state.phone}
               />
 
-              <TextInput
-                style={{
-                  // backgroundColor: '#aa07',
-                  height: h('7%'),
-                  width: '80%',
-                  marginTop: h('1%'),
-                  color: 'white',
-                  fontSize: h('2%'),
-                  borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
-                  borderRadius: h('1%'),
-                  paddingLeft: h('1%'),
-                }}
+              <AppInputField
                 placeholderTextColor={'#fff'}
                 placeholder={'Password'}
                 secureTextEntry
@@ -280,69 +237,26 @@ export class SignUp extends Component {
                 value={this.state.password}
               />
 
-              <TouchableOpacity
+              <AppBtn
+                txt={'SignUp'}
                 onPress={() => {
                   this.SignUp();
                 }}
-                style={{
-                  height: h('6%'),
-                  width: '60%',
-                  marginTop: h('1%'),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: h('10%'),
-                  backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
-                }}>
-                <Text
-                  style={{
-                    fontSize: h('2.5%'),
-                  }}>
-                  SignUp
-                </Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity
+              />
+              <AppBtn
                 onPress={() => {
                   // this.show();
                   this.removeData();
                 }}
-                style={{
-                  height: h('6%'),
-                  width: '60%',
-                  marginTop: h('1%'),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: h('10%'),
-                  backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
-                }}>
-                <Text
-                  style={{
-                    fontSize: h('2.5%'),
-                  }}>
-                  Remove data
-                </Text>
-              </TouchableOpacity>
+                txt={'Remove data'}
+              />
 
-              <TouchableOpacity
+              <AppBtn
                 onPress={() => {
                   this.setState({loadingVisible: true});
                 }}
-                style={{
-                  height: h('6%'),
-                  width: '60%',
-                  marginTop: h('1%'),
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: h('10%'),
-                  backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
-                }}>
-                <Text
-                  style={{
-                    fontSize: h('2.5%'),
-                  }}>
-                  Show loading
-                </Text>
-              </TouchableOpacity>
+                txt={'Show loading'}
+              />
             </View>
           </View>
 

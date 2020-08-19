@@ -18,7 +18,7 @@ export const ScreenNavigator = () => {
           component={SignUp}
           options={{headerShown: false}}
         />
-        
+
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
