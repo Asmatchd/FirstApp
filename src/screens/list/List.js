@@ -14,6 +14,8 @@ import {
   widthPercentageToDP as w,
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
+import {NavHeader} from './../../components';
+
 export class List extends Component {
   state = {
     listData: [
@@ -221,6 +223,13 @@ export class List extends Component {
         style={{
           flex: 1,
         }}>
+        <NavHeader
+          showLeftIc={true}
+          icLeft={'arrow-back'}
+          title={'All Users'}
+          showRightIc={true}
+          txtRight={'Done'}
+        />
         <TextInput
           style={{
             backgroundColor: '#0001',

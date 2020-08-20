@@ -17,7 +17,8 @@ import {
 } from 'react-native-responsive-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from '@react-native-community/async-storage';
-import {Loading, AppInputField, AppBtn} from './../../components';
+import {Loading, AppInputField, AppBtn, NavHeader} from './../../components';
+
 export class SignUp extends Component {
   state = {
     name: '',
@@ -107,52 +108,13 @@ export class SignUp extends Component {
 
           <Loading visible={this.state.loadingVisible} txt={'Loading'} />
 
-          {/* TOp View */}
-          <View
-            style={{
-              height: h('10%'),
-              // height: '10%',
-              width: '100%',
-              // backgroundColor: '#FAF',
-              flexDirection: 'row',
-              // justifyContent: 'space-between',
-            }}>
-            <TouchableOpacity
-              style={{
-                height: '100%',
-                width: '20%',
-                //   backgroundColor: '#aa0',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: h('4.5%'),
-                }}>{`<`}</Text>
-            </TouchableOpacity>
-
-            <View
-              style={{
-                width: '60%',
-              }}
-            />
-
-            <TouchableOpacity
-              style={{
-                height: '100%',
-                width: '20%',
-                //   backgroundColor: '#aa0',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Text
-                style={{
-                  fontSize: h('2.5%'),
-                }}>
-                Done
-              </Text>
-            </TouchableOpacity>
-          </View>
+          <NavHeader
+            showLeftIc={true}
+            icLeft={'arrow-back'}
+            title={'Sign Up'}
+            showRightIc={true}
+            txtRight={'logIn'}
+          />
 
           {/* Center View */}
           <View

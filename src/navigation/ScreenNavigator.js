@@ -5,7 +5,6 @@ const Stack = createStackNavigator();
 
 import {Basics} from '../Basics';
 import {InputField} from '../InputField';
-import {SignUp} from '../screens/signUp';
 
 import {TabNavigator} from './TabNavigator';
 
@@ -13,12 +12,6 @@ export const ScreenNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name="SignUp"
-          component={SignUp}
-          options={{headerShown: false}}
-        />
-
         <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
