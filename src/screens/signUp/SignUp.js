@@ -93,29 +93,34 @@ export class SignUp extends Component {
 
   render() {
     return (
-      <KeyboardAwareScrollView
-        contentContainerStyle={{
-          flexGrow: 2,
+      <View
+        style={{
+          // height: '100%',
+          // width: '100%',
+          flex: 1,
+          backgroundColor: '#fff',
         }}>
-        <View
-          style={{
-            // height: '100%',
-            // width: '100%',
-            flex: 1,
-            backgroundColor: '#a003',
+        <SafeAreaView />
+
+        <Loading visible={this.state.loadingVisible} txt={'Loading'} />
+
+        <NavHeader
+          showLeftIc={true}
+          icLeft={'arrow-back'}
+          leftPressed={() => {
+            console.warn('Left');
+          }}
+          title={'Sign Up'}
+          showRightIc={true}
+          txtRight={'logIn'}
+          rightPressed={() => {
+            this.setState({modalVisible: true});
+          }}
+        />
+        <KeyboardAwareScrollView
+          contentContainerStyle={{
+            flexGrow: 2,
           }}>
-          <SafeAreaView />
-
-          <Loading visible={this.state.loadingVisible} txt={'Loading'} />
-
-          <NavHeader
-            showLeftIc={true}
-            icLeft={'arrow-back'}
-            title={'Sign Up'}
-            showRightIc={true}
-            txtRight={'logIn'}
-          />
-
           {/* Center View */}
           <View
             style={{
@@ -165,38 +170,43 @@ export class SignUp extends Component {
                 paddingTop: h('1%'),
               }}>
               <AppInputField
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'#000'}
                 placeholder={'Full name'}
-                underlineColorAndroid={'#0005'}
                 onChangeText={(txt) => this.setState({name: txt})}
                 value={this.state.name}
+                icType={'ionicons'}
+                icName={'person-outline'}
               />
 
               <AppInputField
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'#000'}
                 placeholder={'Email'}
-                underlineColorAndroid={'#0005'}
                 onChangeText={(txt) => this.setState({email: txt})}
                 keyboardType={'email-address'}
                 value={this.state.email}
+                icType={'ionicons'}
+                icName={'mail-outline'}
               />
 
               <AppInputField
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'#000'}
                 placeholder={'Phone'}
-                underlineColorAndroid={'#0005'}
                 onChangeText={(txt) => this.setState({phone: txt})}
                 keyboardType={'phone-pad'}
                 value={this.state.phone}
+                icType={'ionicons'}
+                icName={'call'}
               />
 
               <AppInputField
-                placeholderTextColor={'#fff'}
+                placeholderTextColor={'#000'}
                 placeholder={'Password'}
                 secureTextEntry
-                underlineColorAndroid={'#0005'}
+                // underlineColorAndroid={'#0005'}
                 onChangeText={(txt) => this.setState({password: txt})}
                 value={this.state.password}
+                icType={'foundation'}
+                icName={'key'}
               />
 
               <AppBtn
@@ -250,199 +260,196 @@ export class SignUp extends Component {
               SignIn
             </Text>
           </TouchableOpacity>
-
-          <Modal
-            animationType="slide"
-            // transparent={true}
-            visible={this.state.modalVisible}
-            onRequestClose={() => {
-              this.setState({modalVisible: false});
+        </KeyboardAwareScrollView>
+        <Modal
+          animationType="slide"
+          // transparent={true}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            this.setState({modalVisible: false});
+          }}>
+          <View
+            style={{
+              // height: '100%',
+              // width: '100%',
+              flex: 1,
+              backgroundColor: '#0005',
             }}>
+            <SafeAreaView />
             <KeyboardAwareScrollView
               contentContainerStyle={{
                 flexGrow: 2,
               }}>
+              {/* TOp View */}
               <View
                 style={{
-                  // height: '100%',
-                  // width: '100%',
-                  flex: 1,
-                  backgroundColor: '#0005',
+                  height: h('10%'),
+                  // height: '10%',
+                  width: '100%',
+                  // backgroundColor: '#FAF',
+                  flexDirection: 'row',
+                  // justifyContent: 'space-between',
                 }}>
-                <SafeAreaView />
-                {/* TOp View */}
+                <TouchableOpacity
+                  style={{
+                    height: '100%',
+                    width: '20%',
+                    //   backgroundColor: '#aa0',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: h('4.5%'),
+                    }}>{`<`}</Text>
+                </TouchableOpacity>
+
                 <View
                   style={{
-                    height: h('10%'),
-                    // height: '10%',
-                    width: '100%',
-                    // backgroundColor: '#FAF',
-                    flexDirection: 'row',
-                    // justifyContent: 'space-between',
-                  }}>
-                  <TouchableOpacity
-                    style={{
-                      height: '100%',
-                      width: '20%',
-                      //   backgroundColor: '#aa0',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: h('4.5%'),
-                      }}>{`<`}</Text>
-                  </TouchableOpacity>
+                    width: '60%',
+                  }}
+                />
 
-                  <View
+                <TouchableOpacity
+                  style={{
+                    height: '100%',
+                    width: '20%',
+                    //   backgroundColor: '#aa0',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text
                     style={{
-                      width: '60%',
+                      fontSize: h('2.5%'),
+                    }}>
+                    Done
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              {/* Center View */}
+              <View
+                style={{
+                  height: h('75%'),
+                  width: '100%',
+                  // backgroundColor: '#faa',
+                }}>
+                {/* Image container */}
+
+                {/* Text */}
+                <View
+                  style={{
+                    alignItems: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: h('3%'),
+                      color: '#fff',
+                    }}>
+                    Sing in to your account
+                  </Text>
+                </View>
+
+                {/* Inputs container */}
+                <View
+                  style={{
+                    height: '60%',
+                    // backgroundColor: '#a234',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    paddingTop: h('1%'),
+                  }}>
+                  <TextInput
+                    style={{
+                      // backgroundColor: '#aa07',
+                      height: h('7%'),
+                      width: '80%',
+                      marginTop: h('1%'),
+                      color: 'white',
+                      fontSize: h('2%'),
+                      borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                      borderRadius: h('1%'),
+                      paddingLeft: h('1%'),
                     }}
+                    placeholderTextColor={'#000'}
+                    placeholder={'Enter Email'}
+                    onChangeText={(inEmail) => this.setState({inEmail})}
+                    keyboardType={'email-address'}
+                  />
+
+                  <TextInput
+                    style={{
+                      // backgroundColor: '#aa07',
+                      height: h('7%'),
+                      width: '80%',
+                      marginTop: h('1%'),
+                      color: 'white',
+                      fontSize: h('2%'),
+                      borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
+                      borderRadius: h('1%'),
+                      paddingLeft: h('1%'),
+                    }}
+                    placeholderTextColor={'#000'}
+                    placeholder={'Enter Password'}
+                    secureTextEntry
+                    onChangeText={(inPassword) => this.setState({inPassword})}
                   />
 
                   <TouchableOpacity
+                    onPress={() => {
+                      console.warn(this.state.inEmail);
+                      console.warn(this.state.inPassword);
+                    }}
                     style={{
-                      height: '100%',
-                      width: '20%',
-                      //   backgroundColor: '#aa0',
+                      height: h('6%'),
+                      width: '60%',
+                      marginTop: h('1%'),
                       alignItems: 'center',
                       justifyContent: 'center',
+                      borderRadius: h('10%'),
+                      backgroundColor:
+                        Platform.OS === 'ios' ? '#fff7' : 'white',
                     }}>
                     <Text
                       style={{
                         fontSize: h('2.5%'),
                       }}>
-                      Done
+                      Sign In
                     </Text>
                   </TouchableOpacity>
                 </View>
-
-                {/* Center View */}
-                <View
-                  style={{
-                    height: h('75%'),
-                    width: '100%',
-                    // backgroundColor: '#faa',
-                  }}>
-                  {/* Image container */}
-
-                  {/* Text */}
-                  <View
-                    style={{
-                      alignItems: 'center',
-                    }}>
-                    <Text
-                      style={{
-                        fontSize: h('3%'),
-                        color: '#fff',
-                      }}>
-                      Sing in to your account
-                    </Text>
-                  </View>
-
-                  {/* Inputs container */}
-                  <View
-                    style={{
-                      height: '60%',
-                      // backgroundColor: '#a234',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      paddingTop: h('1%'),
-                    }}>
-                    <TextInput
-                      style={{
-                        // backgroundColor: '#aa07',
-                        height: h('7%'),
-                        width: '80%',
-                        marginTop: h('1%'),
-                        color: 'white',
-                        fontSize: h('2%'),
-                        borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
-                        borderRadius: h('1%'),
-                        paddingLeft: h('1%'),
-                      }}
-                      placeholderTextColor={'#fff'}
-                      placeholder={'Enter Email'}
-                      underlineColorAndroid={'#0005'}
-                      onChangeText={(inEmail) => this.setState({inEmail})}
-                      keyboardType={'email-address'}
-                    />
-
-                    <TextInput
-                      style={{
-                        // backgroundColor: '#aa07',
-                        height: h('7%'),
-                        width: '80%',
-                        marginTop: h('1%'),
-                        color: 'white',
-                        fontSize: h('2%'),
-                        borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
-                        borderRadius: h('1%'),
-                        paddingLeft: h('1%'),
-                      }}
-                      placeholderTextColor={'#fff'}
-                      placeholder={'Enter Password'}
-                      secureTextEntry
-                      underlineColorAndroid={'#0005'}
-                      onChangeText={(inPassword) => this.setState({inPassword})}
-                    />
-
-                    <TouchableOpacity
-                      onPress={() => {
-                        console.warn(this.state.inEmail);
-                        console.warn(this.state.inPassword);
-                      }}
-                      style={{
-                        height: h('6%'),
-                        width: '60%',
-                        marginTop: h('1%'),
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        borderRadius: h('10%'),
-                        backgroundColor:
-                          Platform.OS === 'ios' ? '#fff7' : 'white',
-                      }}>
-                      <Text
-                        style={{
-                          fontSize: h('2.5%'),
-                        }}>
-                        Sign In
-                      </Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-
-                {/* Bottom View */}
-                <TouchableOpacity
-                  onPress={() => this.setState({modalVisible: false})}
-                  style={{
-                    height: h('10%'),
-                    width: '100%',
-                    // backgroundColor: '#aaf',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}>
-                  <Text
-                    style={{
-                      fontSize: h('2%'),
-                    }}>
-                    Don't have an account?
-                  </Text>
-                  <Text
-                    style={{
-                      color: 'red',
-                      fontSize: h('2.5%'),
-                      marginLeft: h('1%'),
-                    }}>
-                    SignUp
-                  </Text>
-                </TouchableOpacity>
               </View>
+
+              {/* Bottom View */}
+              <TouchableOpacity
+                onPress={() => this.setState({modalVisible: false})}
+                style={{
+                  height: h('10%'),
+                  width: '100%',
+                  // backgroundColor: '#aaf',
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <Text
+                  style={{
+                    fontSize: h('2%'),
+                  }}>
+                  Don't have an account?
+                </Text>
+                <Text
+                  style={{
+                    color: 'red',
+                    fontSize: h('2.5%'),
+                    marginLeft: h('1%'),
+                  }}>
+                  SignUp
+                </Text>
+              </TouchableOpacity>
             </KeyboardAwareScrollView>
-          </Modal>
-        </View>
-      </KeyboardAwareScrollView>
+          </View>
+        </Modal>
+      </View>
     );
   }
 }

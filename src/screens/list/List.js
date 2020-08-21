@@ -228,7 +228,7 @@ export class List extends Component {
           icLeft={'arrow-back'}
           title={'All Users'}
           showRightIc={true}
-          txtRight={'Done'}
+          icRight={'options'}
         />
         <TextInput
           style={{

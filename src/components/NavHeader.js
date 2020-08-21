@@ -21,9 +21,7 @@ export class NavHeader extends Component {
         }}>
         {this.props.showLeftIc === true ? (
           <TouchableOpacity
-            onPress={() => {
-              console.warn('Left pressed');
-            }}
+            onPress={this.props.leftPressed}
             style={{
               height: '100%',
               width: '15%',
@@ -54,9 +52,7 @@ export class NavHeader extends Component {
 
         {this.props.showRightIc === true ? (
           <TouchableOpacity
-            onPress={() => {
-              console.warn('Right pressed');
-            }}
+            onPress={this.props.rightPressed}
             style={{
               height: '100%',
               width: '15%',
@@ -64,12 +60,20 @@ export class NavHeader extends Component {
               alignItems: 'center',
               justifyContent: 'center',
             }}>
-            <Text
-              style={{
-                fontSize: h('2%'),
-              }}>
-              {this.props.txtRight}
-            </Text>
+            {this.props.txtRight ? (
+              <Text
+                style={{
+                  fontSize: h('2%'),
+                }}>
+                {this.props.txtRight}
+              </Text>
+            ) : (
+              <Ionicons
+                name={this.props.icRight}
+                color={'#000'}
+                size={h('4%')}
+              />
+            )}
           </TouchableOpacity>
         ) : (
           <View style={{width: '15%'}} />

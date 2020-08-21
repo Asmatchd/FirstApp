@@ -23,7 +23,7 @@ export class AppBtn extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: h('10%'),
-            backgroundColor: Platform.OS === 'ios' ? '#fff7' : 'white',
+            backgroundColor: '#EAE465',
           }}>
           <Text
             style={{
