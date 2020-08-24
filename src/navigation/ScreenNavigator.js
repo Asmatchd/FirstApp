@@ -7,21 +7,30 @@ import {Basics} from '../Basics';
 import {InputField} from '../InputField';
 
 import {TabNavigator} from './TabNavigator';
+import {Img} from './../screens/img';
 
 export const ScreenNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
+          name="Img"
+          component={Img}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
           name="TabNavigator"
           component={TabNavigator}
           options={{headerShown: false}}
         />
+
         <Stack.Screen
           name="InputField"
           component={InputField}
           options={{headerShown: false}}
         />
+
         <Stack.Screen
           name="Basics"
           component={Basics}

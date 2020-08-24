@@ -22,7 +22,7 @@ export class AppBtn extends Component {
             marginTop: h('1%'),
             alignItems: 'center',
             justifyContent: 'center',
-            borderRadius: h('10%'),
+            borderRadius: h('1.5%'),
             backgroundColor: '#EAE465',
           }}>
           <Text
