@@ -19,7 +19,7 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import AsyncStorage from '@react-native-community/async-storage';
 import {Loading, AppInputField, AppBtn, NavHeader} from './../../components';
 
-export class SignUp extends Component {
+export class SignUpTest extends Component {
   state = {
     name: '',
     email: '',

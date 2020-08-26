@@ -5,6 +5,7 @@ import {
   widthPercentageToDP as w,
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
+import {secondaryColor, white} from '../app/Dimens';
 export class AppBtn extends Component {
   render() {
     return (
@@ -23,11 +24,12 @@ export class AppBtn extends Component {
             alignItems: 'center',
             justifyContent: 'center',
             borderRadius: h('1.5%'),
-            backgroundColor: '#EAE465',
+            backgroundColor: secondaryColor,
           }}>
           <Text
             style={{
               fontSize: h('2.5%'),
+              color: white,
             }}>
             {this.props.txt}
           </Text>

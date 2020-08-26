@@ -6,6 +6,7 @@ import {
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
 import {Icon} from 'react-native-elements';
+import {primaryColor} from '../app/Dimens';
 export class AppInputField extends Component {
   render() {
     return (
@@ -21,8 +22,8 @@ export class AppInputField extends Component {
             width: '80%',
             justifyContent: 'center',
             flexDirection: 'row',
-            borderColor: '#000',
-            borderWidth: h('0.05%'),
+            borderColor: primaryColor,
+            borderWidth: h('0.2%'),
             // borderWidth: Platform.OS === 'ios' ? h('0.05%') : null,
             borderRadius: h('1%'),
             marginBottom: h('1%'),
@@ -34,14 +35,14 @@ export class AppInputField extends Component {
               height: h('7%'),
               alignItems: 'center',
               justifyContent: 'center',
-              borderRightWidth: h('0.05%'),
-              borderColor: '#000',
+              borderRightWidth: h('0.2%'),
+              borderColor: primaryColor,
             }}>
             <Icon
               name={this.props.icName}
               type={this.props.icType}
-              color="red"
-              size={h('4%')}
+              color={primaryColor}
+              size={h('2.5%')}
             />
           </View>
           <View

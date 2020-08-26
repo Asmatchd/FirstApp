@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import {List} from '../screens/list';
 import {Assignment2} from '../screens/assignments';
-import {SignUp} from '../screens/signUp';
+import {SignUpTest} from '../screens/signUp';
 
 export const TabNavigator = () => {
   return (
@@ -28,8 +28,8 @@ export const TabNavigator = () => {
       />
 
       <Tab.Screen
-        name="SignUp"
-        component={SignUp}
+        name="SignUpTest"
+        component={SignUpTest}
         options={{
           headerShown: false,
           tabBarLabel: 'SignUp',
