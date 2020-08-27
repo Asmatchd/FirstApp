@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, {Component} from 'react';
 import {
   View,
@@ -16,7 +17,33 @@ import {
 } from 'react-native-responsive-screen';
 import {primaryColor, white, secondaryColor, silver} from '../Dimens';
 import {AppInputField, AppBtn} from '../../components';
-export class SignUp extends Component {
+var validator = require('email-validator');
+
+export class SignIn extends Component {
+  state = {
+    email: '',
+    password: '',
+  };
+
+  validate = () => {
+    const {email, password} = this.state;
+    const check = validator.validate(email);
+
+    if (check === true) {
+      if (password.length > 7) {
+        const params = {
+          email: email,
+          password: password,
+        };
+        console.warn(params);
+      } else {
+        alert('Password must contain 8 characters.');
+      }
+    } else {
+      alert('Please enter a valid email');
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -27,8 +54,8 @@ export class SignUp extends Component {
 
         <View style={styles.contentView}>
           <View style={styles.topView}>
-            <Text style={styles.topTxt}>Sign Up</Text>
-            <Text style={styles.topBottomTxt}>Create an account</Text>
+            <Text style={styles.topTxt}>Sign In</Text>
+            <Text style={styles.topBottomTxt}>Login to your account</Text>
           </View>
           <View style={styles.userView}>
             <View style={styles.imgView}>
@@ -42,6 +69,7 @@ export class SignUp extends Component {
               icName={'ios-mail'}
               icType={'ionicon'}
               placeholder={'Email'}
+              onChangeText={(email) => this.setState({email})}
             />
 
             <AppInputField
@@ -49,23 +77,17 @@ export class SignUp extends Component {
               icType={'ionicon'}
               placeholder={'Password'}
               secureTextEntry
+              onChangeText={(password) => this.setState({password})}
             />
 
-            <AppInputField
-              icName={'md-key'}
-              icType={'ionicon'}
-              placeholder={'Confirm Password'}
-              secureTextEntry
-            />
-
-            <AppBtn txt={'Sign Up'} />
+            <AppBtn onPress={() => this.validate()} txt={'Sign In'} />
 
             <View style={styles.bottomView}>
-              <Text style={styles.alreadyTxt}>Already have an account?</Text>
+              <Text style={styles.alreadyTxt}>Don't have an account?</Text>
               <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('SignIn')}
+                onPress={() => this.props.navigation.navigate('SignUp')}
                 style={styles.signView}>
-                <Text style={styles.signTxt}>Sign In!</Text>
+                <Text style={styles.signTxt}>Sign Up!</Text>
               </TouchableOpacity>
             </View>
           </View>

@@ -9,11 +9,25 @@ const Stack = createStackNavigator();
 // import {Img} from './../screens/img';
 
 import {SignUp} from '../app/signUp';
+import {SignIn} from '../app/signIn';
+import {Dashboard} from '../app/dashboard';
 
 export const ScreenNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{headerShown: false}}
+        />
+
         <Stack.Screen
           name="SignUp"
           component={SignUp}
