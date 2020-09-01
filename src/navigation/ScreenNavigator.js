@@ -11,20 +11,32 @@ const Stack = createStackNavigator();
 import {SignUp} from '../app/signUp';
 import {SignIn} from '../app/signIn';
 import {Dashboard} from '../app/dashboard';
+import {Settings} from '../app/settings';
+import {DrawerNavigator} from './DrawerNavigator';
 
 export const ScreenNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="SignIn"
-          component={SignIn}
+          name="DrawerNavigator"
+          component={DrawerNavigator}
           options={{headerShown: false}}
         />
 
         <Stack.Screen
+          name="Settings"
+          component={Settings}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
           name="Dashboard"
           component={Dashboard}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="SignIn"
+          component={SignIn}
           options={{headerShown: false}}
         />
 
@@ -33,6 +45,12 @@ export const ScreenNavigator = () => {
           component={SignUp}
           options={{headerShown: false}}
         />
+
+        {/* <Stack.Screen
+          name="Dashboard"
+          component={Dashboard}
+          options={{headerShown: false}}
+        /> */}
 
         {/* <Stack.Screen
           name="Img"

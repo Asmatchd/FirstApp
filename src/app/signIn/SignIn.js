@@ -35,7 +35,7 @@ export class SignIn extends Component {
           email: email,
           password: password,
         };
-        console.warn(params);
+        this.props.navigation.replace('Dashboard');
       } else {
         alert('Password must contain 8 characters.');
       }

@@ -26,7 +26,12 @@ export class Dashboard extends Component {
     return (
       <View style={styles.container}>
         <SafeAreaView />
-        <NavHeader showLeftIc={true} icLeft={'options'} title={'Dashboard'} />
+        <NavHeader
+          showLeftIc={true}
+          icLeft={'options'}
+          leftPressed={() => this.props.navigation.openDrawer()}
+          title={'Dashboard'}
+        />
 
         <View style={styles.contentView}>
           {/* Top */}
