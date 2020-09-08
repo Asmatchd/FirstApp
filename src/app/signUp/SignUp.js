@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, {Component} from 'react';
 import {
   View,
@@ -16,7 +17,53 @@ import {
 } from 'react-native-responsive-screen';
 import {primaryColor, white, secondaryColor, silver} from '../Dimens';
 import {AppInputField, AppBtn} from '../../components';
+import {axiosInstance, baseUrl} from '../Api';
+var validator = require('email-validator');
 export class SignUp extends Component {
+  state = {
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
+
+  validate = () => {
+    const {email, password, confirmPassword} = this.state;
+    const check = validator.validate(email);
+
+    if (check === true) {
+      if (password.length > 7) {
+        if (password === confirmPassword) {
+          const params = {
+            email: email,
+            password: password,
+          };
+
+          axiosInstance
+            .post(baseUrl + 'users/signUp', params)
+            .then((res) => {
+              const userData = res.data;
+              if (userData.status === '200') {
+                alert(userData.msg);
+              } else if (userData.status === '404') {
+                alert(userData.msg);
+              }
+            })
+            .catch((error) => {
+              console.warn('Network error');
+            });
+
+          // this.props.navigation.replace('Dashboard');
+        } else {
+          alert('Both passwords must be same ');
+        }
+      } else {
+        alert('Password must contain 8 characters.');
+      }
+    } else {
+      alert('Please enter a valid email');
+    }
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -42,6 +89,7 @@ export class SignUp extends Component {
               icName={'ios-mail'}
               icType={'ionicon'}
               placeholder={'Email'}
+              onChangeText={(email) => this.setState({email})}
             />
 
             <AppInputField
@@ -49,6 +97,7 @@ export class SignUp extends Component {
               icType={'ionicon'}
               placeholder={'Password'}
               secureTextEntry
+              onChangeText={(password) => this.setState({password})}
             />
 
             <AppInputField
@@ -56,9 +105,12 @@ export class SignUp extends Component {
               icType={'ionicon'}
               placeholder={'Confirm Password'}
               secureTextEntry
+              onChangeText={(confirmPassword) =>
+                this.setState({confirmPassword})
+              }
             />
 
-            <AppBtn txt={'Sign Up'} />
+            <AppBtn onPress={() => this.validate()} txt={'Sign Up'} />
 
             <View style={styles.bottomView}>
               <Text style={styles.alreadyTxt}>Already have an account?</Text>
