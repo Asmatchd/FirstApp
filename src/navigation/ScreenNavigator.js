@@ -13,6 +13,7 @@ import {SignIn} from '../app/signIn';
 import {Dashboard} from '../app/dashboard';
 import {Settings} from '../app/settings';
 import {DrawerNavigator} from './DrawerNavigator';
+import {AllUsers} from '../app/allUsers';
 
 export const ScreenNavigator = () => {
   return (
@@ -33,6 +34,12 @@ export const ScreenNavigator = () => {
         <Stack.Screen
           name="DrawerNavigator"
           component={DrawerNavigator}
+          options={{headerShown: false}}
+        />
+
+        <Stack.Screen
+          name="AllUsers"
+          component={AllUsers}
           options={{headerShown: false}}
         />
 

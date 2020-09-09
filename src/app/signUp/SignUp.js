@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-alert */
 import React, {Component} from 'react';
 import {
@@ -15,15 +16,19 @@ import {
   widthPercentageToDP as w,
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+
 import {primaryColor, white, secondaryColor, silver} from '../Dimens';
-import {AppInputField, AppBtn} from '../../components';
+import {AppInputField, AppBtn, Loading} from '../../components';
 import {axiosInstance, baseUrl} from '../Api';
 var validator = require('email-validator');
+
 export class SignUp extends Component {
   state = {
     email: '',
     password: '',
     confirmPassword: '',
+    isLoading: false,
   };
 
   validate = () => {
@@ -33,6 +38,7 @@ export class SignUp extends Component {
     if (check === true) {
       if (password.length > 7) {
         if (password === confirmPassword) {
+          this.loading(true);
           const params = {
             email: email,
             password: password,
@@ -41,6 +47,7 @@ export class SignUp extends Component {
           axiosInstance
             .post(baseUrl + 'users/signUp', params)
             .then((res) => {
+              this.loading(false);
               const userData = res.data;
               if (userData.status === '200') {
                 alert(userData.msg);
@@ -49,6 +56,8 @@ export class SignUp extends Component {
               }
             })
             .catch((error) => {
+              this.loading(false);
+
               console.warn('Network error');
             });
 
@@ -64,65 +73,73 @@ export class SignUp extends Component {
     }
   };
 
+  loading = (value) => {
+    this.setState({isLoading: value});
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <SafeAreaView />
-        <View style={styles.topBg} />
+      <KeyboardAwareScrollView contentContainerStyle={{flexGrow: 2}}>
+        <Loading visible={this.state.isLoading} txt={'Loading'} />
+        <View style={styles.container}>
+          <SafeAreaView />
 
-        <View style={styles.bottomBg} />
+          <View style={styles.topBg} />
 
-        <View style={styles.contentView}>
-          <View style={styles.topView}>
-            <Text style={styles.topTxt}>Sign Up</Text>
-            <Text style={styles.topBottomTxt}>Create an account</Text>
-          </View>
-          <View style={styles.userView}>
-            <View style={styles.imgView}>
-              <Image
-                source={require('../../assets/ic.png')}
-                style={styles.img}
-              />
+          <View style={styles.bottomBg} />
+
+          <View style={styles.contentView}>
+            <View style={styles.topView}>
+              <Text style={styles.topTxt}>Sign Up</Text>
+              <Text style={styles.topBottomTxt}>Create an account</Text>
             </View>
+            <View style={styles.userView}>
+              <View style={styles.imgView}>
+                <Image
+                  source={require('../../assets/ic.png')}
+                  style={styles.img}
+                />
+              </View>
 
-            <AppInputField
-              icName={'ios-mail'}
-              icType={'ionicon'}
-              placeholder={'Email'}
-              onChangeText={(email) => this.setState({email})}
-            />
+              <AppInputField
+                icName={'ios-mail'}
+                icType={'ionicon'}
+                placeholder={'Email'}
+                onChangeText={(email) => this.setState({email})}
+              />
 
-            <AppInputField
-              icName={'md-key'}
-              icType={'ionicon'}
-              placeholder={'Password'}
-              secureTextEntry
-              onChangeText={(password) => this.setState({password})}
-            />
+              <AppInputField
+                icName={'md-key'}
+                icType={'ionicon'}
+                placeholder={'Password'}
+                secureTextEntry
+                onChangeText={(password) => this.setState({password})}
+              />
 
-            <AppInputField
-              icName={'md-key'}
-              icType={'ionicon'}
-              placeholder={'Confirm Password'}
-              secureTextEntry
-              onChangeText={(confirmPassword) =>
-                this.setState({confirmPassword})
-              }
-            />
+              <AppInputField
+                icName={'md-key'}
+                icType={'ionicon'}
+                placeholder={'Confirm Password'}
+                secureTextEntry
+                onChangeText={(confirmPassword) =>
+                  this.setState({confirmPassword})
+                }
+              />
 
-            <AppBtn onPress={() => this.validate()} txt={'Sign Up'} />
+              <AppBtn onPress={() => this.validate()} txt={'Sign Up'} />
 
-            <View style={styles.bottomView}>
-              <Text style={styles.alreadyTxt}>Already have an account?</Text>
-              <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('SignIn')}
-                style={styles.signView}>
-                <Text style={styles.signTxt}>Sign In!</Text>
-              </TouchableOpacity>
+              <View style={styles.bottomView}>
+                <Text style={styles.alreadyTxt}>Already have an account?</Text>
+                <TouchableOpacity
+                  onPress={() => this.props.navigation.navigate('SignIn')}
+                  style={styles.signView}>
+                  <Text style={styles.signTxt}>Sign In!</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </View>
-      </View>
+      </KeyboardAwareScrollView>
     );
   }
 }

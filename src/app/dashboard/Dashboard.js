@@ -35,7 +35,9 @@ export class Dashboard extends Component {
 
         <View style={styles.contentView}>
           {/* Top */}
-          <TouchableOpacity style={[styles.itemView, {marginTop: h('4%')}]}>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('AllUsers')}
+            style={[styles.itemView, {marginTop: h('4%')}]}>
             <Image style={styles.img} source={firstImg} />
             <Text style={styles.txt}>Get Doctor Appointment</Text>
           </TouchableOpacity>
