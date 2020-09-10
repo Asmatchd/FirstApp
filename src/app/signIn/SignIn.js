@@ -17,6 +17,7 @@ import {
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {primaryColor, white, secondaryColor, silver} from '../Dimens';
 import {AppInputField, AppBtn, Loading} from '../../components';
@@ -47,7 +48,13 @@ export class SignIn extends Component {
             this.loading(false);
             const userData = res.data;
             if (userData.status === '200') {
-              this.props.navigation.replace('DrawerNavigator');
+              AsyncStorage.setItem(
+                'userData',
+                JSON.stringify(userData.data),
+                () => {
+                  this.props.navigation.replace('DrawerNavigator');
+                },
+              );
             } else if (userData.status === '404') {
               alert(userData.msg);
             }

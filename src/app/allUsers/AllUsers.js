@@ -58,7 +58,13 @@ export class AllUsers extends Component {
   };
 
   renderItem = (item) => (
-    <TouchableOpacity style={styles.itemView}>
+    <TouchableOpacity
+      onPress={() =>
+        this.props.navigation.navigate('Details', {
+          value: item,
+        })
+      }
+      style={styles.itemView}>
       <Text style={styles.name}>user Email {item.email}</Text>
       <Text style={styles.work}>user Email {item.password}</Text>
     </TouchableOpacity>
@@ -78,7 +84,12 @@ export class AllUsers extends Component {
       <View style={styles.container}>
         <SafeAreaView />
         <Loading visible={this.state.isLoading} txt={'Loading'} />
-        <NavHeader title={'All User'} />
+        <NavHeader
+          showLeftIc
+          icLeft={'ios-arrow-back'}
+          leftPressed={() => this.props.navigation.goBack()}
+          title={'All User'}
+        />
         <View
           style={{
             width: '100%',

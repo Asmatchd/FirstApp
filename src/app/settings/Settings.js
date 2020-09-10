@@ -1,28 +1,35 @@
 import React, {Component} from 'react';
-import {View, Text, SafeAreaView, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  TouchableOpacity,
+} from 'react-native';
 import {
   widthPercentageToDP as w,
   heightPercentageToDP as h,
 } from 'react-native-responsive-screen';
 import {NavHeader} from './../../components';
+import AsyncStorage from '@react-native-community/async-storage';
+
 export class Settings extends Component {
+  removeData = () => {
+    AsyncStorage.removeItem('userData', () => {
+      this.props.navigation.replace('SignIn');
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <SafeAreaView />
-        <NavHeader title={'Settings'} />
-        <View style={styles.ItemView}>
-          <Text style={styles.txt}>Doctors</Text>
-        </View>
-        <View style={styles.ItemView}>
-          <Text style={styles.txt}>Reset Password</Text>
-        </View>
-        <View style={styles.ItemView}>
-          <Text style={styles.txt}>Terms</Text>
-        </View>
-        <View style={styles.ItemView}>
+
+        <TouchableOpacity
+          onPress={() => this.removeData()}
+          style={styles.ItemView}>
           <Text style={styles.txt}>Log out</Text>
-        </View>
+        </TouchableOpacity>
       </View>
     );
   }
