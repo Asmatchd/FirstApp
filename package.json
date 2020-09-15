@@ -8,7 +8,6 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
-    
     "clean_gradlew": "cd android && ./gradlew clean",
     "releaseApk": "cd android && ./gradlew bundleRelease",
     "testReleaseApk": "react-native run-android --variant=release",
@@ -33,7 +32,8 @@
     "react-native-responsive-screen": "^1.4.1",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-screens": "^2.9.0",
-    "react-native-vector-icons": "^7.0.0"
+    "react-native-vector-icons": "^7.0.0",
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.4",

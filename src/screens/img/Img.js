@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react-native/no-inline-styles */
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, Image, SafeAreaView} from 'react-native';
@@ -7,10 +8,14 @@ import {
 } from 'react-native-responsive-screen';
 import ImagePicker from 'react-native-image-picker';
 import {Loading, AppInputField, AppBtn, NavHeader} from './../../components';
+import RNFetchBlob from 'rn-fetch-blob';
+import AsyncStorage from '@react-native-community/async-storage';
+import {axiosInstance, baseUrl} from '../../app/Api';
 
 export class Img extends Component {
   state = {
     imgUrl: '',
+    imgData: {},
   };
 
   capture = () => {
@@ -34,16 +39,79 @@ export class Img extends Component {
         console.warn('ImagePicker Error: ', response.error);
       } else {
         // const source = {uri: response.uri};
+        // const imgData = {uri: response.data};
 
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-        this.setState({
-          imgUrl: response.uri,
-        });
+        // this.setState((prevstate) => ({count: prevstate.count + 1}));
+
+        this.setState(
+          {
+            imgUrl: response.uri,
+            imgData: response.data,
+          },
+          () => {
+            this.uploadDp();
+          },
+        );
       }
     });
   };
+
+  uploadDp = () => {
+    const data = [
+      {
+        name: 'profilePic',
+        filename: 'profilePic.png',
+        data: this.state.imgData,
+      },
+    ];
+    RNFetchBlob.fetch(
+      'POST',
+      `${baseUrl}users/uploadProfilePic`,
+      {
+        // Authorization: 'Bearer access-token...',
+        // more headers  ..
+      },
+      data,
+    ).then((res) => {
+      const imgDetails = JSON.parse(res.data);
+      const imgPath = imgDetails[0].profilePic.path;
+      // after removing the public/
+      const imgUrl = imgPath.substr(7, imgPath.length);
+
+      AsyncStorage.getItem('userData', (_err, result) => {
+        if (result !== null) {
+          const user = JSON.parse(result);
+          const id = user._id;
+
+          // const url = `${baseURL}users/editProfileImageUrl`;
+          const params = {
+            _id: id,
+            user_image: imgUrl,
+          };
+          axiosInstance
+            .post(baseUrl, params)
+            .then((_res) => {
+              AsyncStorage.setItem(
+                'userData',
+                JSON.stringify(_res.data),
+                () => {
+                  alert('Profile image updated successfully');
+                },
+              );
+            })
+            .catch((__err) => {
+              console.warn('error in updating');
+              this.controlLoadingView();
+            });
+        }
+      });
+    });
+  };
+
+  
 
   render() {
     return (
