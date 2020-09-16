@@ -27,6 +27,7 @@ export class AllUsers extends Component {
     data: [],
     refreshing: false,
     isLoading: false,
+    selected: [],
   };
 
   componentDidMount = () => {
@@ -59,16 +60,55 @@ export class AllUsers extends Component {
 
   renderItem = (item) => (
     <TouchableOpacity
-      onPress={() =>
-        this.props.navigation.navigate('Details', {
-          value: item,
-        })
+      onPress={
+        () => this.add(item)
+        // this.props.navigation.navigate('Details', {
+        //   value: item,
+        // })
       }
+      onLongPress={() => {
+        this.remove(item);
+      }}
       style={styles.itemView}>
       <Text style={styles.name}>user Email {item.email}</Text>
       <Text style={styles.work}>user Email {item.password}</Text>
     </TouchableOpacity>
   );
+
+  add = (item) => {
+    // will be use when you want to merge 2 arrays
+    const data = [
+      {
+        userId: item._id,
+        userEmail: item.email,
+        orderStatus: 'Pending',
+      },
+    ];
+    const newArray = this.state.selected.concat(data);
+    this.setState({selected: newArray}, () => {
+      console.warn(newArray);
+    });
+
+    // will be use when you want to push a JSON object in an array
+    // this.setState(
+    //   (prevState) => ({selected: [...prevState.selected, item]}),
+    //   () => {
+    //     console.warn(this.state.selected);
+    //   },
+    // );
+  };
+
+  remove = (item) => {
+    const arr = this.state.data;
+
+    const ind = arr.indexOf(item);
+    console.warn(ind);
+
+    if (ind > -1) {
+      arr.splice(ind, 1);
+      this.setState({data: arr});
+    }
+  };
 
   loading = (value) => {
     this.setState({isLoading: value});

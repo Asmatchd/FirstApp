@@ -44,8 +44,6 @@ export class Img extends Component {
         // You can also display the image using data:
         // const source = { uri: 'data:image/jpeg;base64,' + response.data };
 
-        // this.setState((prevstate) => ({count: prevstate.count + 1}));
-
         this.setState(
           {
             imgUrl: response.uri,
@@ -110,8 +108,6 @@ export class Img extends Component {
       });
     });
   };
-
-  
 
   render() {
     return (
