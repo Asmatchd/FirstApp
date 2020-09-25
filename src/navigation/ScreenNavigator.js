@@ -16,11 +16,19 @@ import {DrawerNavigator} from './DrawerNavigator';
 import {AllUsers, Details} from '../app/allUsers';
 import {Splash} from '../app/splash';
 
+import HooksPractice from '../app/HooksPractice';
+
 export const ScreenNavigator = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
+        {/* <Stack.Screen
+          name="HooksPractice"
+          component={HooksPractice}
+          options={{headerShown: false}}
+        /> */}
+
+        {/* <Stack.Screen
           name="Splash"
           component={Splash}
           options={{headerShown: false}}
@@ -30,7 +38,7 @@ export const ScreenNavigator = () => {
           name="SignIn"
           component={SignIn}
           options={{headerShown: false}}
-        />
+        /> */}
 
         <Stack.Screen
           name="SignUp"

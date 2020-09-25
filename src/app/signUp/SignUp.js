@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 /* eslint-disable no-alert */
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {
   View,
   Text,
@@ -22,6 +22,8 @@ import {primaryColor, white, secondaryColor, silver} from '../Dimens';
 import {AppInputField, AppBtn, Loading} from '../../components';
 import {axiosInstance, baseUrl} from '../Api';
 var validator = require('email-validator');
+import {Formik} from 'formik';
+import * as yup from 'yup';
 
 export class SignUp extends Component {
   state = {
@@ -101,32 +103,136 @@ export class SignUp extends Component {
                 />
               </View>
 
-              <AppInputField
-                icName={'ios-mail'}
-                icType={'ionicon'}
-                placeholder={'Email'}
-                onChangeText={(email) => this.setState({email})}
-              />
+              <Formik
+                initialValues={{email: '', password: '', confirmPassword: ''}}
+                onSubmit={(values) => console.warn(values)}
+                validationSchema={yup.object().shape({
+                  email: yup
+                    .string()
+                    .email('Please enter valid E-mail')
+                    .required('Email is a requried  Field'),
+                  password: yup
+                    .string()
+                    .min(8, 'Password must contain 8 characters')
+                    .required('Password is a required Field'),
+                  confirmPassword: yup
+                    .string()
+                    .oneOf(
+                      [yup.ref('password'), null],
+                      "Password doesn't match",
+                    )
+                    .required('Please enter you confirm password'),
 
-              <AppInputField
-                icName={'md-key'}
-                icType={'ionicon'}
-                placeholder={'Password'}
-                secureTextEntry
-                onChangeText={(password) => this.setState({password})}
-              />
+                  // password_With_Regex: yup
+                  // .string()
+                  // .test(
+                  //   'regex',
+                  //   'Password must contain 8 Characters,Uppercase & Lowercase, Number & special Character',
+                  //   val => {
+                  //     let regExp = new RegExp(
+                  //       '^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$',
+                  //     );
+                  //     console.log(regExp.test(val), regExp, val);
+                  //     return regExp.test(val);
+                  //   },
+                  // )
+                  // .required('Password is requried field'),
+                })}>
+                {({
+                  values,
+                  handleChange,
+                  errors,
+                  setFieldTouched,
+                  touched,
+                  isValid,
+                  handleSubmit,
+                }) => (
+                  <Fragment>
+                    <AppInputField
+                      // value={values.email}
+                      icName={'ios-mail'}
+                      icType={'ionicon'}
+                      placeholder={'Email'}
+                      keyboardType={'email-address'}
+                      // onChangeText={(email) => this.setState({email})}
+                      onChangeText={handleChange('email')}
+                      onBlur={() => setFieldTouched('email')}
+                    />
+                    <View
+                      style={{
+                        height: 20,
+                      }}>
+                      {touched.email && errors.email && (
+                        <Text
+                          style={{
+                            color: 'red',
+                            fontSize: 12,
+                          }}>
+                          {errors.email}
+                        </Text>
+                      )}
+                    </View>
 
-              <AppInputField
-                icName={'md-key'}
-                icType={'ionicon'}
-                placeholder={'Confirm Password'}
-                secureTextEntry
-                onChangeText={(confirmPassword) =>
-                  this.setState({confirmPassword})
-                }
-              />
+                    <AppInputField
+                      icName={'md-key'}
+                      icType={'ionicon'}
+                      placeholder={'Password'}
+                      secureTextEntry
+                      // onChangeText={(password) => this.setState({password})}
+                      onChangeText={handleChange('password')}
+                      onBlur={() => setFieldTouched('password')}
+                    />
 
-              <AppBtn onPress={() => this.validate()} txt={'Sign Up'} />
+                    <View
+                      style={{
+                        height: 20,
+                      }}>
+                      {touched.password && errors.password && (
+                        <Text
+                          style={{
+                            color: 'red',
+                            fontSize: 12,
+                          }}>
+                          {errors.password}
+                        </Text>
+                      )}
+                    </View>
+
+                    <AppInputField
+                      icName={'md-key'}
+                      icType={'ionicon'}
+                      placeholder={'Confirm Password'}
+                      secureTextEntry
+                      // onChangeText={(confirmPassword) =>
+                      //   this.setState({confirmPassword})
+                      // }
+                      onChangeText={handleChange('confirmPassword')}
+                      onBlur={() => setFieldTouched('confirmPassword')}
+                    />
+
+                    <View
+                      style={{
+                        height: 20,
+                      }}>
+                      {touched.confirmPassword && errors.confirmPassword && (
+                        <Text
+                          style={{
+                            color: 'red',
+                            fontSize: 12,
+                          }}>
+                          {errors.confirmPassword}
+                        </Text>
+                      )}
+                    </View>
+
+                    <AppBtn
+                      // onPress={() => this.validate()}
+                      onPress={handleSubmit}
+                      txt={'Sign Up'}
+                    />
+                  </Fragment>
+                )}
+              </Formik>
 
               <View style={styles.bottomView}>
                 <Text style={styles.alreadyTxt}>Already have an account?</Text>
